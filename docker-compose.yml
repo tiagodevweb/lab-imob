@@ -1,0 +1,74 @@
+version: '2.3'
+services:
+  app:
+    build: ./.docker/
+    container_name: app
+    restart: always
+    tty: true
+    environment:
+      - "DB_HOST=db"
+      - "DB_PORT=3306"
+      - "DB_DATABASE=local"
+      - "DB_USERNAME=root"
+      - "DB_PASSWORD="
+    volumes:
+      - .:/var/www
+    entrypoint: ./.docker/entrypoint.sh
+    networks:
+      - lab_imob
+    depends_on:
+      db: 
+        condition: service_healthy
+  nginx:
+    build: .docker/nginx/
+    container_name: nginx
+    restart: always
+    tty: true
+    volumes:
+      - .:/var/www
+    ports:
+      - "8080:80"
+    networks:
+      - lab_imob
+    depends_on:
+      - app
+  db:
+    image: mariadb:10.3
+    container_name: db
+    restart: always
+    tty: true
+    environment:
+      - "MYSQL_ALLOW_EMPTY_PASSWORD=true"
+      - "MYSQL_DATABASE=local"
+      - "MYSQL_USER=root"
+    volumes:
+      - "dbdata:/var/lib/mysql"
+    ports:
+      - "33060:3306"
+    command: "--innodb_use_native_aio=0"
+    healthcheck:
+      test: '/usr/bin/mysql --user=root --database=local --execute="SHOW DATABASES;"'
+    networks:
+      - lab_imob
+  dbtest:
+    container_name: dbtest
+    image: mariadb:10.3
+    tmpfs: /var/lib/mysql
+    environment:
+      - "MYSQL_ALLOW_EMPTY_PASSWORD=true"
+      - "MYSQL_DATABASE=testing"
+      - "MYSQL_USER=root"
+  redis:
+    image: redis:alpine
+    container_name: redis
+    tty: true
+    expose:
+      - 6379
+    networks:
+      - lab_imob
+networks: 
+  lab_imob:
+    driver: bridge
+volumes:
+  "dbdata":
+    driver: local
