@@ -7,20 +7,42 @@
         "watch-poll": "npm run watch -- --watch-poll",
         "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
         "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "test": "jest"
     },
     "devDependencies": {
+        "@vue/test-utils": "^1.1.1",
         "axios": "^0.21.0",
+        "babel-core": "^7.0.0-bridge.0",
+        "babel-jest": "^26.6.1",
         "bootstrap": "^4.5.3",
         "cross-env": "^7.0",
+        "jest": "^26.6.1",
         "jquery": "^3.5",
         "laravel-mix": "^5.0.7",
         "lodash": "^4.17.20",
         "popper.js": "^1.12",
         "resolve-url-loader": "^3.1.2",
-        "sass": "^1.27.1",
+        "sass": "^1.28.0",
         "sass-loader": "^10.0.4",
         "vue": "^2.6.12",
+        "vue-jest": "^3.0.7",
         "vue-template-compiler": "^2.6.12"
+    },
+    "jest": {
+        "moduleFileExtensions": [
+            "js",
+            "json",
+            "vue"
+        ],
+        "transform": {
+            ".*\\.(vue)$": "vue-jest",
+            ".*\\.(js)$": "babel-jest"
+        }
+    },
+    "babel": {
+        "presets": [
+            "@babel/preset-env"
+        ]
     }
 }
