@@ -21,10 +21,12 @@
         "jquery": "^3.5",
         "laravel-mix": "^5.0.7",
         "lodash": "^4.17.20",
+        "moxios": "^0.4.0",
         "popper.js": "^1.12",
         "resolve-url-loader": "^3.1.2",
         "sass": "^1.28.0",
         "sass-loader": "^10.0.4",
+        "sinon": "^9.2.1",
         "vue": "^2.6.12",
         "vue-jest": "^3.0.7",
         "vue-template-compiler": "^2.6.12"
@@ -38,7 +40,8 @@
         "transform": {
             ".*\\.(vue)$": "vue-jest",
             ".*\\.(js)$": "babel-jest"
-        }
+        },
+        "verbose": true
     },
     "babel": {
         "presets": [

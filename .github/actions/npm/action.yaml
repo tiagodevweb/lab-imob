@@ -1,0 +1,5 @@
+name: "npm install"
+description: "npm install"
+runs:
+  using: "docker"
+  image: "Dockerfile"
