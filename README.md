@@ -2,6 +2,30 @@
 
 [![Actions Status](https://github.com/tiagodevweb/lab-imob/workflows/CI/badge.svg)](https://github.com/tiagodevweb/lab-imob/actions)
 
+
+#### Requisitos
+
+- [Docker](https://docs.docker.com/get-docker/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
+
+### Instalação
+
+```bash
+$ docker-compose up -d --build
+```
+
+### Tests PhpUnit
+
+```bash
+$ docker-compose exec app vendor/bin/phpunit --testdox
+```
+
+### Tests Jest
+
+```bash
+$ docker-compose exec app npm test -- --verbose
+```
+
 ##### ~~Funcionalidade 1: CONCLUÍDO~~
   - Permitir o cadastro de um imóvel com algumas características. 
   - o cadastro de um imóvel deve possuir:
