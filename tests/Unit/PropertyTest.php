@@ -16,7 +16,17 @@ class PropertyTest extends TestCase
             'number',
             'neighborhood',
             'city',
-            'state'
+            'state',
+            'contracted'
         ], (new Property())->getFillable());
+    }
+
+    /** @test */
+    public function must_have_casts()
+    {
+        $this->assertEquals([
+            'contracted' => 'boolean',
+            'id' => 'int'
+        ], (new Property())->getCasts());
     }
 }

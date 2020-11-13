@@ -12,6 +12,12 @@ class Property extends Model
         'number',
         'neighborhood',
         'city',
-        'state'
+        'state',
+        'contracted'
+    ];
+
+    protected $casts = [
+        'contracted' => 'boolean',
+        'id' => 'int'
     ];
 }

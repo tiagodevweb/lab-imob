@@ -14,6 +14,10 @@
 $ docker-compose up -d --build
 ```
 
+```bash
+$ docker-compose exec app php artisan db:seed
+```
+
 ### Tests PhpUnit
 
 ```bash
@@ -35,7 +39,7 @@ Para que o cadastro ocorra deverá haver validações em dois níveis. Frontend 
 - 1 - e-mail, rua, bairro, cidade e estado são campos obrigatórios;
 - 2 - e-mail deverá ser validado;
 
-##### Funcionalidade 2:
+##### ~~Funcionalidade 2: CONCLUÍDO~~
   - Contexto: Permitir visualização dos imóveis cadastrados.
     Os dados de imóveis deverão ser carregados via request assíncrona. Esses dados deverão ser exibidos numa tabela e ao menos uma das colunas serem ordenáveis.
     Dados que deverão ser exibidos na tabela:

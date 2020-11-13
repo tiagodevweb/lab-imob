@@ -8,6 +8,13 @@ use App\Http\Requests\PropertyRequest;
 
 class PropertyController extends Controller
 {
+    public function index()
+    {
+        sleep(2);//simulate slow request
+        
+        return Property::all();
+    }
+
     public function store(PropertyRequest $request)
     {
         Property::create($request->validated());

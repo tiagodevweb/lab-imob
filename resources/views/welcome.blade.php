@@ -14,9 +14,7 @@
     <body>
         <div id="app">
             <div class="container">
-                <nav class="navbar navbar-light bg-light">
-                    <a class="navbar-brand" href="#">Lab Imob</a>
-                </nav>
+                <properties-table></properties-table>
                 <property-create></property-create>
             </div>
         </div>

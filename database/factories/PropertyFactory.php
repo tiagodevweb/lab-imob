@@ -12,6 +12,7 @@ $factory->define(Property::class, function (Faker $faker) {
         'number' => $faker->numberBetween(100, 500),
         'neighborhood' => $faker->sentence(1),
         'city' => $faker->sentence(1),
-        'state' => $faker->sentence(1)
+        'state' => $faker->sentence(1),
+        'contracted' => $faker->boolean()
     ];
 });

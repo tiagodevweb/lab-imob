@@ -21,6 +21,7 @@ class CreatePropertiesTable extends Migration
             $table->string('neighborhood');
             $table->string('city');
             $table->string('state');
+            $table->boolean('contracted')->default(false);
             $table->timestamps();
         });
     }

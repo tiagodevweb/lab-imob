@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="property-create">
         <div class="card">
             <div class="card-header">Criar Propriedade</div>
             <div class="card-body">

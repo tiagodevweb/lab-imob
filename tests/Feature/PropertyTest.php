@@ -12,6 +12,29 @@ class PropertyTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
+    public function must_list_registered_properties()
+    {
+        $property = factory(Property::class)->create();
+
+        $this->get(route('api.properties.store'))
+            ->assertStatus(200)
+            ->assertJsonStructure([
+                [
+                    'email',
+                    'street',
+                    'number',
+                    'neighborhood',
+                    'city',
+                    'state',
+                    'contracted',
+                ]
+            ])
+            ->assertJsonFragment([
+                'email' => $property->email
+            ]);
+    }
+
+    /** @test */
     public function should_return_error_when_email_is_empty()
     {
         $this->storeProperty(['email' => ''])
