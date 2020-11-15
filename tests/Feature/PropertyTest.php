@@ -156,14 +156,7 @@ class PropertyTest extends TestCase
     /** @test */
     public function must_create_a_property_in_the_database()
     {
-        $data = [
-            'email' => 'any_email@domain.com',
-            'street' => 'Any Street',
-            'number' => '1234',
-            'neighborhood' => 'Any Neighborhood',
-            'city' => 'Any City',
-            'state' => 'Any State'
-        ];
+        $data = factory(Property::class)->make()->toArray();
 
         $this->post(route('api.properties.store'), $data)
             ->assertStatus(201)
@@ -172,15 +165,35 @@ class PropertyTest extends TestCase
             ]);
 
         $this->assertDatabaseHas('properties', [
-            'email' => 'any_email@domain.com',
-            'street' => 'Any Street',
-            'number' => '1234',
-            'neighborhood' => 'Any Neighborhood',
-            'city' => 'Any City',
-            'state' => 'Any State'
+            'email' => $data['email'],
+            'street' => $data['street'],
+            'number' => $data['number'],
+            'neighborhood' => $data['neighborhood'],
+            'city' => $data['city'],
+            'state' => $data['state']
         ]);
     }
 
+    /** @test */
+    public function must_delete_a_property_in_the_database()
+    {
+        $property = factory(Property::class)->create();
+
+        $this->delete(route('api.properties.delete', $property))
+            ->assertStatus(200)
+            ->assertJsonFragment([
+                'message' => trans('messages.properties.delete')
+            ]);
+
+        $this->assertDatabaseMissing('properties', [
+            'email' => $property->email,
+            'street' => $property->street,
+            'number' => $property->number,
+            'neighborhood' => $property->neighborhood,
+            'city' => $property->city,
+            'state' => $property->state
+        ]);
+    }
     protected function storeProperty($overrides = [])
     {
         $data = factory(Property::class)->make($overrides)->toArray();

@@ -23,4 +23,13 @@ class PropertyController extends Controller
             'message' => trans('messages.properties.store')
         ], 201);
     }
+
+    public function delete(Property $property)
+    {
+        $property->delete();
+
+        return response()->json([
+            'message' => trans('messages.properties.delete')
+        ], 200);
+    }
 }

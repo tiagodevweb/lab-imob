@@ -1,7 +1,8 @@
-import faker from 'faker'
+import faker, { fake } from 'faker'
 import moxios from 'moxios'
 import { mount } from '@vue/test-utils'
 import PropertiesTable from '../../resources/js/components/PropertiesTable'
+import { Collapse } from 'bootstrap'
 
 describe('PropertiesTable', () => {
 
@@ -130,6 +131,56 @@ describe('PropertiesTable', () => {
                 })
 
                 done()
+            })
+        })
+    });
+
+    test('must delete property in the database', done => {
+
+        let email = faker.internet.email()
+        let street = faker.address.streetName()
+        let number = faker.random.number()
+        let city = faker.address.city()
+        let state = faker.address.state()
+        let contracted = faker.random.boolean()
+
+        moxios.wait(() => {
+            let request = moxios.requests.mostRecent()
+            request.respondWith({
+                status: 200,
+                response: [
+                    {
+                        id: 1,
+                        email: email,
+                        street: street,
+                        number: number,
+                        city: city,
+                        state: state,
+                        contracted
+                }
+                ]
+            }).then(() => {
+                clickIn('td:nth-of-type(6) > a')
+
+                wrapper.vm.$nextTick(() => {
+                    see('Deseja excluir definitivamente a propriedade abaixo?')
+                    see(`Proprietário: ${email}`)
+                    see(`Endereço: Rua: ${street} Nº ${number}, ${city}, ${state}`)
+                    see(`Contratada: ${contracted ? 'Sim' : 'Não'}`)
+    
+                    clickIn('button#delete')
+            
+                    moxios.wait(() => {
+                        let request = moxios.requests.mostRecent()
+                        request.respondWith({
+                            status: 204
+                        }).then(() => {
+                            expect(wrapper.html()).not.toContain(email)
+                            see('Adicione a primeira propriedade!')
+                            done()
+                        })
+                    })
+                })
             })
         })
     });

@@ -35,10 +35,38 @@
                             <td>Rua: {{ property.street }} Nº {{ property.number }}, {{ property.city }}, {{ property.state }}</td>
                             <td><span class="badge" :class="[property.contracted ? 'badge-success' : 'badge-secondary']">{{ property.contracted ? 'Sim' : 'Não' }}</span></td>
                             <td>{{ moment(property.created_at).format('DD/MM/YYYY') }}</td>
-                            <td><a href="#" class="text-danger">Remover</a></td>
+                            <td><a href="#" class="text-danger" @click.prevent="tryToRemove(property)">Remover</a></td>
                         </tr>
                     </tbody>
                 </table>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div v-if="showModal" class="modal modal-custom" style="display: block">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="float-left">Atenção!</h4>
+                        <button type="button" @click.prevent="closeModal" class="close">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                
+                    <div class="modal-body">
+                        <p>Deseja excluir definitivamente a propriedade abaixo?</p>
+                        <ul>
+                            <li>Proprietário: {{ propertyToBeDeleted.email }}</li>
+                            <li>Endereço: {{ formatedAddress(propertyToBeDeleted) }}</li>
+                            <li>Contratada: {{ formatedContracted(propertyToBeDeleted) }}</li>
+                        </ul>                       
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" @click.prevent="closeModal">Cancelar</button>
+						<button type="button" class="btn btn-danger" id="delete" @click.prevent="remove(propertyToBeDeleted.id)">Confirmar Exclusão</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -56,7 +84,9 @@ export default {
             currentSortDir:'asc',
             loading: false,
             error: false,
-            moment
+            moment,
+            showModal: false,
+            propertyToBeDeleted: {}
         };
     },
 
@@ -81,6 +111,31 @@ export default {
                 this.currentSortDir = this.currentSortDir === 'asc' ? 'desc' : 'asc';
             }
             this.currentSort = column;
+        },
+        formatedAddress(property) {
+            return `Rua: ${property.street } Nº ${property.number }, ${property.city }, ${property.state }`
+        },
+        formatedContracted: function (property) {
+            return property.contracted ? 'Sim' : 'Não'
+        },
+        tryToRemove(property) {
+            this.propertyToBeDeleted = property
+
+            this.showModal = true
+        },
+        remove(id) {
+            axios.delete(`api/properties/${id}`).then((response) => {
+                this.properties = this.properties.filter(function(property) {
+                    return property.id !== id;
+                });
+                this.closeModal()
+            }).catch((error) => {
+                console.log(error.response)
+            }); 
+        },
+        closeModal() {
+            this.propertyToBeDeleted = {}
+            this.showModal = false
         }
     },
     computed:{
@@ -102,3 +157,17 @@ export default {
     }
 };
 </script>
+
+<style>
+.modal-custom {
+    position: fixed;
+    z-index: 9998;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    display: table;
+    transition: opacity .3s ease;
+}
+</style>

@@ -20,3 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('properties', 'Api\PropertyController@index')->name('api.properties.index');
 Route::post('properties', 'Api\PropertyController@store')->name('api.properties.store');
+Route::delete('properties/{property}', 'Api\PropertyController@delete')->name('api.properties.delete');
