@@ -30,7 +30,7 @@ $ docker-compose exec app vendor/bin/phpunit --testdox
 $ docker-compose exec app npm test -- --verbose
 ```
 
-##### ~~Funcionalidade 1: CONCLUÍDO~~
+##### ~~Funcionalidade 1: CONCLUÍDA~~
   - Permitir o cadastro de um imóvel com algumas características. 
   - o cadastro de um imóvel deve possuir:
   - e-mail do proprietário, rua, número, complemento, bairro, cidade, estado;
@@ -39,7 +39,7 @@ Para que o cadastro ocorra deverá haver validações em dois níveis. Frontend 
 - 1 - e-mail, rua, bairro, cidade e estado são campos obrigatórios;
 - 2 - e-mail deverá ser validado;
 
-##### ~~Funcionalidade 2: CONCLUÍDO~~
+##### ~~Funcionalidade 2: CONCLUÍDA~~
   - Contexto: Permitir visualização dos imóveis cadastrados.
     Os dados de imóveis deverão ser carregados via request assíncrona. Esses dados deverão ser exibidos numa tabela e ao menos uma das colunas serem ordenáveis.
     Dados que deverão ser exibidos na tabela:
@@ -48,7 +48,7 @@ Para que o cadastro ocorra deverá haver validações em dois níveis. Frontend 
   - Status (Contratado / Não contratado)
   - Coluna para ações (remover).
 
-##### Funcionalidade 3:
+##### ~~Funcionalidade 3: CONCLUÍDA~~
   - Contexto: permitir a remoção de uma propriedade via chamada assíncrona com atualização posterior da lista de propriedades.
   - Observação: a remoção de uma propriedade deverá ser virtual.
 
