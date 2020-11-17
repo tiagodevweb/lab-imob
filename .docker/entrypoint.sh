@@ -10,7 +10,13 @@ php artisan key:generate
 
 php artisan migrate
 
-npm install
+if [ ! -d "node_modules" ]; then
+    npm install
+fi
+
+if [ ! -f "public/mix-manifest.json" ]; then
+    npm run dev
+fi
 
 chmod -R 777 storage .env
 

@@ -28,8 +28,4 @@ export default class Errors {
         }
         this.data = {}
     }
-
-    isEmpty() {
-        return Object.keys(this.data).length === 0;
-    }
 }

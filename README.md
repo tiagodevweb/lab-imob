@@ -13,22 +13,28 @@
 ```bash
 $ docker-compose up -d --build
 ```
+##### Acompanhar instalação de dependencias
+```bash
+$ docker-compose logs app
+```
 
 ```bash
 $ docker-compose exec app php artisan db:seed
 ```
 
-### Tests PhpUnit
+### Tests Backend
 
 ```bash
 $ docker-compose exec app vendor/bin/phpunit --testdox
 ```
 
-### Tests Jest
+### Tests Frontend
 
 ```bash
 $ docker-compose exec app npm test -- --verbose
 ```
+
+- [http://localhost:8080/](http://localhost:8080/)
 
 ##### ~~Funcionalidade 1: CONCLUÍDA~~
   - Permitir o cadastro de um imóvel com algumas características. 

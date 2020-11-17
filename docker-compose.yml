@@ -5,12 +5,6 @@ services:
     container_name: app
     restart: always
     tty: true
-    environment:
-      - "DB_HOST=db"
-      - "DB_PORT=3306"
-      - "DB_DATABASE=local"
-      - "DB_USERNAME=root"
-      - "DB_PASSWORD="
     volumes:
       - .:/var/www
     entrypoint: ./.docker/entrypoint.sh
@@ -58,6 +52,8 @@ services:
       - "MYSQL_ALLOW_EMPTY_PASSWORD=true"
       - "MYSQL_DATABASE=testing"
       - "MYSQL_USER=root"
+    networks:
+      - lab_imob
   redis:
     image: redis:alpine
     container_name: redis
