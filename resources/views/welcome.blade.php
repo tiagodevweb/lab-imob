@@ -18,7 +18,7 @@
                 <hr/>
                 <property-create></property-create>
                 <hr/>
-                <contract-create></property-create>
+                <contract-create :properties="{{ $properties }}"></property-create>
             </div>
         </div>
     </body>

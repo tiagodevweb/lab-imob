@@ -114,6 +114,7 @@ import Errors from "../utils/Errors";
 import axios from 'axios'
 
 export default {
+    props: ['properties'],
     data() {
         return {
             form: {
@@ -127,7 +128,6 @@ export default {
                 cpf: '###.###.###-##',
                 cnpf: '##.###.###/####-##'
             },
-            properties: [],
             loading: false,
             errors: new Errors(),
             sending: false,
@@ -180,15 +180,6 @@ export default {
                     }
                 );
             }            
-        },
-        getAllProperties() {
-            this.loading = true
-            axios.get('api/properties').then((response) => {
-                this.properties = response.data           
-                this.loading = false
-            }).catch((error) => {
-                console.log(error.response)
-            }); 
         },
         formatedAddress(property) {
             return `Rua: ${property.street } Nº ${property.number }, ${property.city }`
