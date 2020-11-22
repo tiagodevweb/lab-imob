@@ -139,10 +139,6 @@ export default {
         };
     },
 
-    mounted() {
-        this.getAllProperties()
-    },
-
     methods: {
         submit() {
             let self = this
