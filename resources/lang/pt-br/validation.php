@@ -88,6 +88,8 @@ return [
     'unique_with' => 'O campo :attribute já está sendo utilizado.',
     'uploaded' => 'O campo :attribute falha no upload.',
     'url' => 'O campo :attribute tem um formato inválido.',
+    'cpf' => 'O campo :attribute deve ser um CPF válido.',
+    'cnpj' => 'O campo :attribute deve ser um CNPJ válido.',
 
     /*
     |--------------------------------------------------------------------------

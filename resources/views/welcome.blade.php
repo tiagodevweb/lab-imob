@@ -15,7 +15,10 @@
         <div id="app">
             <div class="container">
                 <properties-table></properties-table>
+                <hr/>
                 <property-create></property-create>
+                <hr/>
+                <contract-create></property-create>
             </div>
         </div>
     </body>
