@@ -2,7 +2,7 @@ version: '2.3'
 services:
   app:
     build: ./.docker/
-    container_name: app
+    container_name: ${DC_APP_NAME}
     restart: always
     tty: true
     volumes:
@@ -13,22 +13,22 @@ services:
     depends_on:
       db: 
         condition: service_healthy
-  nginx:
+  web:
     build: .docker/nginx/
-    container_name: nginx
+    container_name: ${DC_WEB_NAME}
     restart: always
     tty: true
     volumes:
       - .:/var/www
     ports:
-      - "8080:80"
+      - "${DC_WEB_PORT}:80"
     networks:
       - lab_imob
     depends_on:
       - app
   db:
     image: mariadb:10.3
-    container_name: db
+    container_name: ${DC_DB_NAME}
     restart: always
     tty: true
     environment:
@@ -38,14 +38,14 @@ services:
     volumes:
       - "dbdata:/var/lib/mysql"
     ports:
-      - "33060:3306"
+      - "${DC_DB_PORT}:3306"
     command: "--innodb_use_native_aio=0"
     healthcheck:
       test: '/usr/bin/mysql --user=root --database=local --execute="SHOW DATABASES;"'
     networks:
       - lab_imob
   dbtest:
-    container_name: dbtest
+    container_name: ${DC_DB_TEST_NAME}
     image: mariadb:10.3
     tmpfs: /var/lib/mysql
     environment:
