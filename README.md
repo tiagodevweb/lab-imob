@@ -3,14 +3,28 @@
 [![Actions Status](https://github.com/tiagodevweb/lab-imob/workflows/CI/badge.svg)](https://github.com/tiagodevweb/lab-imob/actions)
 
 
-#### Requisitos
+#### Requirements
 
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
-### Instalação
+### Install
 
-#### Opcional in .env.example
+```bash
+$ docker-compose up -d --build
+```
+#### Monitor installation process
+```bash
+$ docker-compose logs app
+```
+
+#### Fake data
+```bash
+$ docker-compose exec app php artisan db:seed
+```
+
+#### Optional in .env
+It is necessary to go up the containers again after changing the variables above.
 ```php
 # Docker variables
 DC_APP_NAME=app
@@ -21,20 +35,6 @@ DC_REDIS_NAME=redis
 DC_WEB_PORT=80
 DC_DB_PORT=3306
 ```
-
-```bash
-$ docker-compose up -d --build
-```
-#### Acompanhar instalação de dependencias
-```bash
-$ docker-compose logs app
-```
-#### Popular banco de dados
-```bash
-$ docker-compose exec app php artisan db:seed
-```
-Caso tenha configurado uma `DC_WEB_PORT` diferente de 80, adicione ao endereço abaixo, ex http://localhost:8000 
-- [http://localhost](http://localhost)
 
 ### Tests Backend
 
@@ -47,6 +47,8 @@ $ docker-compose exec app vendor/bin/phpunit --testdox
 ```bash
 $ docker-compose exec app npm test -- --verbose
 ```
+
+### Desafio:
 
 #### ~~Funcionalidade 1: CONCLUÍDA~~
   - Permitir o cadastro de um imóvel com algumas características. 
