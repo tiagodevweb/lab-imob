@@ -21,7 +21,7 @@ services:
     volumes:
       - .:/var/www
     ports:
-      - "${DC_WEB_PORT:-80}:80"
+      - "${PORT:-80}:80"
     networks:
       - lab_imob
     depends_on:
