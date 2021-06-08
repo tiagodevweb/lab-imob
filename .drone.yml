@@ -1,0 +1,26 @@
+kind: pipeline
+name: default
+type: docker
+
+steps:
+  - name: composer
+    pull: if-not-exists
+    image: composer
+    commands:
+      - composer -V
+      - cp .env.drone .env
+      - composer install --prefer-dist
+
+  - name: test
+    image: lorisleiva/laravel-docker
+    commands:
+      - php artisan key:generate
+      - php artisan migrate
+      - ./vendor/bin/phpunit
+
+services:
+  - name: database
+    image: mariadb:10.3
+    environment:
+      MYSQL_DATABASE: "laravel"
+      MYSQL_ROOT_PASSWORD: "secret"
