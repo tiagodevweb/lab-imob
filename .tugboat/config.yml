@@ -1,0 +1,15 @@
+services:
+  php:
+    image: tugboatqa/php:7-apache
+    default: true
+    commands:
+      init:
+        - apt-get update
+        - apt-get install -y libzip-dev
+        - pecl install zip
+        - docker-php-ext-enable zip        
+        - a2enmod headers rewrite
+        - composer install --no-dev        
+        - ln -snf "${TUGBOAT_ROOT}/public" "${DOCROOT}"        
+        - chown -R www-data storage bootstrap/cache
+        - chmod -R 744 storage bootstrap/cache
