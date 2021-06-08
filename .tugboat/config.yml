@@ -10,8 +10,10 @@ services:
         - docker-php-ext-enable zip        
         - a2enmod headers rewrite
         - composer install --no-dev     
-        - cp .env.example .env
+        - cp .env.tugboat .env
         - php artisan key:generate   
+        - touch database/database.sqlite
+        - php artisan migrate --force
         - ln -snf "${TUGBOAT_ROOT}/public" "${DOCROOT}"        
         - chown -R www-data storage bootstrap/cache
         - chmod -R 744 storage bootstrap/cache
