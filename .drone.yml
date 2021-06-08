@@ -1,26 +1,8 @@
-kind: pipeline
-name: default
-type: docker
-
-steps:
-  - name: composer
-    pull: if-not-exists
-    image: composer
+pipeline:
+  test:
+    image: php:7.3-cli
     commands:
-      - composer -V
-      - cp .env.drone .env
-      - composer install --prefer-dist
-
-  - name: test
-    image: lorisleiva/laravel-docker
-    commands:
-      - php artisan key:generate
-      - php artisan migrate
-      - ./vendor/bin/phpunit
-
-services:
-  - name: database
-    image: mariadb:10.3
-    environment:
-      MYSQL_DATABASE: "laravel"
-      MYSQL_ROOT_PASSWORD: "secret"
+      - apt-get update       
+      - apt-get install git -y
+      - curl --silent --show-error https://getcomposer.org/installer | php
+      - php composer.phar install
