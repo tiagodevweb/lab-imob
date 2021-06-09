@@ -9,9 +9,7 @@ services:
         - pecl install zip
         - docker-php-ext-enable zip        
         - a2enmod headers rewrite
-        - composer install --no-dev     
-        - cp .env.tugboat .env
-        - php artisan key:generate   
+        - composer install --no-dev       
         - touch database/database.sqlite
         - php artisan migrate --force
         - ln -snf "${TUGBOAT_ROOT}/public" "${DOCROOT}"        
