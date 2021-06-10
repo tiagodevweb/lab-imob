@@ -1,0 +1,8 @@
+pipeline:
+  test:
+    image: php:7.3-cli
+    commands:
+      - apt-get update       
+      - apt-get install git -y
+      - curl --silent --show-error https://getcomposer.org/installer | php
+      - php composer.phar install
