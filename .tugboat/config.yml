@@ -9,11 +9,10 @@ services:
         - pecl install zip
         - docker-php-ext-enable zip        
         - a2enmod headers rewrite
-        - composer install --no-dev       
-        - touch database/database.sqlite
-        - chmod 775 database/database.sqlite
-        - chown $(whoami) database/database.sqlite
+        - composer install --no-dev
         - php artisan migrate --force
         - ln -snf "${TUGBOAT_ROOT}/public" "${DOCROOT}"        
         - chown -R www-data storage bootstrap/cache
         - chmod -R 744 storage bootstrap/cache
+  mysql:
+    image: tugboatqa/mysql:5
